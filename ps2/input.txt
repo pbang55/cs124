@@ -1,0 +1,5 @@
+4 4 1
+X O O E
+O O X O
+O X X O
+S O O X

@@ -25,6 +25,10 @@ class State:
 				if celltype == 'O':
 					neighbor = State(cs, self.steps+1, self.lives, celltype, self.keys)
 					successors.append(neighbor)
+				elif celltype == 'M':
+					if self.lives > 1:
+						neighbor = State(cs, self.steps+1, self.lives-1, celltype, self.keys)
+						successors.append(neighbor)
 				elif celltype == 'E':
 					neighbor = State(cs, self.steps+1, self.lives, celltype, self.keys)
 					successors.append(neighbor)

@@ -1,3 +1,4 @@
+from collections import deque
 N, M, T = map(int, raw_input().split())
 
 matrix = [raw_input().split() for row in xrange(N)]
@@ -34,11 +35,12 @@ class State:
 
 def BFS():
 	startState = State(startCoords, 0, T, 'S', [])
-	fringe = [startState]
+	fringe = deque()
+	fringe.append(startState)
 
 	visited = [[[False for col in xrange(M)] for row in xrange(N)] for life in xrange(T)]
 	while fringe:
-		currentState = fringe.pop()
+		currentState = fringe.popleft()
 		coords = currentState.coords
 		if visited[currentState.lives-1][coords[0]][coords[1]]:
 			continue

@@ -8,8 +8,6 @@ for row in xrange(N):
 		elif matrix[row][col] == 'E':
 			endCoords = (row, col)
 
-visited = [[[False for col in xrange(M)] for row in xrange(N)] for life in xrange(T)]
-
 class State:
 	def __init__(self, coords, steps, lives, celltype, keys):
 		self.coords = coords
@@ -28,7 +26,30 @@ class State:
 				if celltype == 'O':
 					neighbor = State(cs, self.steps+1, self.lives, celltype, self.keys)
 					successors.append(neighbor)
+				elif celltype == 'E':
+					neighbor = State(cs, self.steps+1, self.lives, celltype, self.keys)
+					successors.append(neighbor)
 		return successors
 
-start = State(startCoords, 0, T, 'S', [])
-print start.getSuccessors()
+	def isGoalState(self):
+		return self.celltype == 'E'
+
+def BFS():
+	startState = State(startCoords, 0, T, 'S', [])
+	fringe = [startState]
+
+	visited = [[[False for col in xrange(M)] for row in xrange(N)] for life in xrange(T)]
+	print visited
+	while fringe:
+		currentState = fringe.pop()
+		coords = currentState.coords
+		if visited[currentState.lives-1][coords[0]][coords[1]]:
+			continue
+		else:
+			if currentState.isGoalState():
+				return currentState.steps
+			else:
+				visited[currentState.lives-1][coords[0]][coords[1]] = True
+				fringe.extend(currentState.getSuccessors())
+
+print BFS()

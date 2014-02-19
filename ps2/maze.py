@@ -5,8 +5,6 @@ for row in xrange(N):
 	for col in xrange(M):
 		if matrix[row][col] == 'S':
 			startCoords = (row, col)
-		elif matrix[row][col] == 'E':
-			endCoords = (row, col)
 
 class State:
 	def __init__(self, coords, steps, lives, celltype, keys):
@@ -39,7 +37,6 @@ def BFS():
 	fringe = [startState]
 
 	visited = [[[False for col in xrange(M)] for row in xrange(N)] for life in xrange(T)]
-	print visited
 	while fringe:
 		currentState = fringe.pop()
 		coords = currentState.coords
@@ -51,5 +48,6 @@ def BFS():
 			else:
 				visited[currentState.lives-1][coords[0]][coords[1]] = True
 				fringe.extend(currentState.getSuccessors())
+	return -1
 
 print BFS()
